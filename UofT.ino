@@ -10,6 +10,7 @@ void setup() {
   pinMode(13, OUTPUT);
   pinMode(12, OUTPUT);
   pinMode(11, OUTPUT);
+  pinMode(3, OUTPUT);
   lcd.init();
   lcd.backlight();
   pinMode(sensorPin, INPUT);
@@ -53,6 +54,10 @@ digitalWrite(indicator, state);
 if (state==1) {
   lcd.setCursor(2, 0);
   lcd.print("Heat detected");
+  lcd.setCursor(0, 1);
+  lcd.print("Temp: ");
+  lcd.print(vol);
+  lcd.print("C");
   delay(4500);
   lcd.clear();
   delay(1000);
@@ -61,8 +66,18 @@ if (state==1) {
 else if (state==0) {
   lcd.setCursor(1,0);
   lcd.print("No Heat");
-  delay(4500);
+  lcd.setCursor(0, 1);
+  lcd.print("Temp: ");
+  lcd.print(vol);
+  lcd.print("C");
+  delay(2000);
   lcd.clear();
-  delay(1000);
+  lcd.setCursor(1,0);
+  lcd.print("Turning fan on ");
+  digitalWrite(3, HIGH);
+ 
+  
+  delay(2000);
 }
+digitalWrite(3, LOW);
  }
