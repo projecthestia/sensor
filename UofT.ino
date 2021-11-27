@@ -4,6 +4,8 @@
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 byte sensorPin = 6;
 byte indicator = 10;
+int potpin = 0;
+int val = 0;
 
 void setup() {
   Serial.begin(9600);
@@ -11,6 +13,7 @@ void setup() {
   pinMode(12, OUTPUT);
   pinMode(11, OUTPUT);
   pinMode(3, OUTPUT);
+  pinMode(8, OUTPUT);
   lcd.init();
   lcd.backlight();
   pinMode(sensorPin, INPUT);
@@ -51,6 +54,8 @@ else if (vol>40)                               //  low temperature area and LED 
 
 byte state = digitalRead(sensorPin);
 digitalWrite(indicator, state);
+val= map(analogRead(potpin),0,1023,0,255);
+Serial.println(val);
 if (state==1) {
   lcd.setCursor(2, 0);
   lcd.print("Heat detected");
@@ -72,12 +77,15 @@ else if (state==0) {
   lcd.print("C");
   delay(2000);
   lcd.clear();
+  digitalWrite(8, HIGH);
   lcd.setCursor(1,0);
   lcd.print("Turning fan on ");
+  
   digitalWrite(3, HIGH);
  
   
   delay(2000);
 }
+digitalWrite(8, LOW);
 digitalWrite(3, LOW);
  }
