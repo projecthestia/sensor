@@ -11,24 +11,32 @@ void loop() {
 Serial.print("Tep:");
  Serial.print(vol);
  Serial.println("C");
+
+
 if (vol<28)                     // low temperature area and LED setup
 {
   digitalWrite(13, HIGH);
   digitalWrite(12, LOW);
   digitalWrite(11, LOW);
+  delay(2000);
 }
-else if (vol>=28 && vol<=30)                            
+else if (vol>=28 && vol<=40)                            
  {
    digitalWrite(13, LOW);
 
   digitalWrite(12, HIGH);
   digitalWrite(11, LOW);
+  delay(2000);
 }
-else if (vol>30)                               //  low temperature area and LED setup
+else if (vol>40)                               //  low temperature area and LED setup
 
 {
-   digitalWrite(13, LOW);
+  digitalWrite(13, LOW);
   digitalWrite(12, LOW);
   digitalWrite(11, HIGH);
+  delay(2000);
 }
+
+
+delay(1000);
  }
