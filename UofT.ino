@@ -1,17 +1,27 @@
 
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+byte sensorPin = 6;
+byte indicator = 10;
 
 void setup() {
-Serial.begin(9600);
+  Serial.begin(9600);
   pinMode(13, OUTPUT);
   pinMode(12, OUTPUT);
   pinMode(11, OUTPUT);
+  lcd.init();
+  lcd.backlight();
+  pinMode(sensorPin, INPUT);
+  pinMode(indicator, OUTPUT);
+  
+  
 }
 void loop() {
   int vol = analogRead(A0) * (5.0 / 1023.0*100);   // read temperature value of LM35
 Serial.print("Tep:");
  Serial.print(vol);
  Serial.println("C");
-
 
 if (vol<28)                     // low temperature area and LED setup
 {
@@ -38,5 +48,21 @@ else if (vol>40)                               //  low temperature area and LED 
 }
 
 
-delay(1000);
+byte state = digitalRead(sensorPin);
+digitalWrite(indicator, state);
+if (state==1) {
+  lcd.setCursor(2, 0);
+  lcd.print("Heat detected");
+  delay(4500);
+  lcd.clear();
+  delay(1000);
+}
+
+else if (state==0) {
+  lcd.setCursor(1,0);
+  lcd.print("No Heat");
+  delay(4500);
+  lcd.clear();
+  delay(1000);
+}
  }
