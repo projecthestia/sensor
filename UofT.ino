@@ -70,6 +70,7 @@ if (state==1) {
 
 else if (state==0) {
   lcd.setCursor(1,0);
+  digitalWrite(8, HIGH);
   lcd.print("No Heat");
   lcd.setCursor(0, 1);
   lcd.print("Temp: ");
@@ -77,9 +78,9 @@ else if (state==0) {
   lcd.print("C");
   delay(2000);
   lcd.clear();
-  digitalWrite(8, HIGH);
   lcd.setCursor(1,0);
   lcd.print("Turning fan on ");
+  lcd.clear();
   
   digitalWrite(3, HIGH);
  
